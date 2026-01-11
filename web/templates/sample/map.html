@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Google Map Pin Validation</h1>
+    <p>地図上のピンをドラッグして位置を選択してください。</p>
+    <div id="map"></div>
+    <form id="location-form"
+          hx-post="{% url 'submit_location' %}"
+          hx-trigger="submit"
+          hx-target="#pin-message"
+          hx-swap="innerHTML">
+        <input type="hidden" name="latitude" id="latitude" value="{{ initial_latitude }}">
+        <input type="hidden" name="longitude" id="longitude" value="{{ initial_longitude }}">
+        <input type="hidden"
+               name="initial_latitude"
+               id="initial_latitude"
+               value="{{ initial_latitude }}">
+        <input type="hidden"
+               name="initial_longitude"
+               id="initial_longitude"
+               value="{{ initial_longitude }}">
+        <div id="pin-message"
+             hx-post="{% url 'validate_pin' %}"
+             hx-trigger="pin-moved from:window"
+             hx-target="#pin-message"
+             hx-swap="innerHTML"
+             hx-include="#location-form"></div>
+        <button type="submit" class="submit-btn">送信</button>
+    </form>
+    <p><a href="{% url 'index' %}">戻る</a></p>
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]);for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+            key: "",
+            v: "weekly",
+        });
+
+        let map;
+        let marker;
+        const initialLat = {{ initial_latitude }};
+        const initialLng = {{ initial_longitude }};
+
+        async function initMap() {
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+            const initialPosition = { lat: initialLat, lng: initialLng };
+
+            map = new Map(document.getElementById("map"), {
+                zoom: 15,
+                center: initialPosition,
+                mapId: "DEMO_MAP_ID",
+            });
+
+            marker = new AdvancedMarkerElement({
+                map: map,
+                position: initialPosition,
+                gmpDraggable: true,
+                title: "ドラッグして位置を選択",
+            });
+
+            marker.addListener("dragend", () => {
+                const position = marker.position;
+                document.getElementById("latitude").value = position.lat;
+                document.getElementById("longitude").value = position.lng;
+                window.dispatchEvent(new Event("pin-moved"));
+            });
+        }
+
+        initMap();
+    </script>
+{% endblock %}

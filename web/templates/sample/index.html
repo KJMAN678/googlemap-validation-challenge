@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Sample</h1>
+    <p><a href="{% url 'map' %}">Google Map Pin Validation</a></p>
     <button hx-get="/clicked"
             hx-trigger="click"
             hx-target="#clicked"
