@@ -3,11 +3,7 @@
     <h1>Google Map Pin Validation</h1>
     <p>地図上のピンをドラッグして位置を選択してください。</p>
     <div id="map"></div>
-    <form id="location-form"
-          hx-post="{% url 'submit_location' %}"
-          hx-trigger="submit"
-          hx-target="#pin-message"
-          hx-swap="innerHTML">
+    <form id="location-form">
         <input type="hidden" name="latitude" id="latitude" value="{{ initial_latitude }}">
         <input type="hidden" name="longitude" id="longitude" value="{{ initial_longitude }}">
         <input type="hidden"
@@ -24,7 +20,12 @@
              hx-target="#pin-message"
              hx-swap="innerHTML"
              hx-include="#location-form"></div>
-        <button type="submit" class="submit-btn">送信</button>
+        <button type="button"
+                class="submit-btn"
+                hx-post="{% url 'submit_location' %}"
+                hx-target="#pin-message"
+                hx-swap="innerHTML"
+                hx-include="#location-form">送信</button>
     </form>
     <p><a href="{% url 'index' %}">戻る</a></p>
     <script>
