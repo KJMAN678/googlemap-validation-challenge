@@ -14,18 +14,18 @@
                name="initial_longitude"
                id="initial_longitude"
                value="{{ initial_longitude }}">
-        <div id="pin-message"
-             hx-post="{% url 'validate_pin' %}"
-             hx-trigger="pin-moved from:window"
-             hx-target="#pin-message"
-             hx-swap="innerHTML"
-             hx-include="#location-form"></div>
         <button type="button"
                 class="submit-btn"
                 hx-post="{% url 'submit_location' %}"
                 hx-target="#pin-message"
                 hx-swap="innerHTML"
                 hx-include="#location-form">送信</button>
+        <div id="pin-message"
+             hx-post="{% url 'validate_pin' %}"
+             hx-trigger="pin-moved from:window"
+             hx-target="#pin-message"
+             hx-swap="innerHTML"
+             hx-include="#location-form"></div>
     </form>
     <p><a href="{% url 'index' %}">戻る</a></p>
     <script>
