@@ -43,11 +43,11 @@ def validate_pin(request):
         if form.is_valid():
             return HttpResponse("", status=204)
         else:
+            # ステータスコード200を返すことで、HTMXがhx-targetに従ってDOMを更新できるようにする
             return render(
                 request,
                 "sample/_pin_error.html",
                 {"form": form},
-                status=400,
             )
     return HttpResponse("", status=400)
 
@@ -66,10 +66,10 @@ def submit_location(request):
                 },
             )
         else:
+            # ステータスコード200を返すことで、HTMXがhx-targetに従ってDOMを更新できるようにする
             return render(
                 request,
                 "sample/_pin_error.html",
                 {"form": form},
-                status=400,
             )
     return HttpResponse("", status=400)
