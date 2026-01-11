@@ -1,0 +1,22 @@
+{% load django_htmx %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="sample page">
+        <meta name="keywords" content="sample">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sample</title>
+        {% htmx_script %}
+    </head>
+    <body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
+        {% load account %}
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            <button hx-post="{% url 'account_logout' %}"
+                    hx-target="body"
+                    hx-swap="innerHTML">Logout</button>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

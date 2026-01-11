@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Sample</h1>
+    <button hx-get="/clicked"
+            hx-trigger="click"
+            hx-target="#clicked"
+            hx-swap="outerHTML">Click Me</button>
+    <span id="clicked"></span>
+    <ul>
+        {% if samples %}
+            {% for sample in samples %}
+                <li>{{ sample.name }}</li>
+                <ul>
+                    <li>{{ sample.description }}</li>
+                    <li>{{ sample.created_at }}</li>
+                    <li>{{ sample.updated_at }}</li>
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </ul>
+{% endblock %}

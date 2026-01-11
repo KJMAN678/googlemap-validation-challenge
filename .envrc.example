@@ -1,0 +1,7 @@
+export DJANGO_SUPERUSER_USERNAME=django
+export DJANGO_SUPERUSER_EMAIL=django@example.com
+export DJANGO_SUPERUSER_PASSWORD=django
+export DJANGO_SECRET_KEY=django
+export POSTGRES_DB=postgres
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=postgres
