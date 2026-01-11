@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -30,6 +31,7 @@ def map_view(request):
     context = {
         "initial_latitude": INITIAL_LATITUDE,
         "initial_longitude": INITIAL_LONGITUDE,
+        "google_maps_api_key": settings.GOOGLE_MAPS_API_KEY,
     }
     return render(request, "sample/map.html", context)
 

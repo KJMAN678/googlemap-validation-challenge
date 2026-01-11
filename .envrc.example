@@ -5,3 +5,4 @@ export DJANGO_SECRET_KEY=django
 export POSTGRES_DB=postgres
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=postgres
+export GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
