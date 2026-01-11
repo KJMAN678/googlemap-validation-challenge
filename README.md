@@ -7,6 +7,7 @@ $ mkdir sample
 $ docker compose exec app uv run django-admin startapp sample sample
 
 http://127.0.0.1:8000/
+http://127.0.0.1:8000/map/
 http://127.0.0.1:8000/admin/
 
 # セキュリティチェック
@@ -37,6 +38,7 @@ $ direnv allow
 or
 $ source .envrc
 ```
+- Google Console で Maps JavaScript API を有効にし、API Key を取得し、.envrc の GOOGLE_MAPS_API_KEY を更新
 
 - ローカル用
 ```sh
