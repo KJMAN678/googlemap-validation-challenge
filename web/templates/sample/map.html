@@ -60,8 +60,11 @@
 
             marker.addListener("dragend", () => {
                 const position = marker.position;
-                document.getElementById("latitude").value = position.lat;
-                document.getElementById("longitude").value = position.lng;
+                // LatLngオブジェクト（メソッド）とLatLngLiteral（プロパティ）の両方に対応
+                const lat = typeof position.lat === 'function' ? position.lat() : position.lat;
+                const lng = typeof position.lng === 'function' ? position.lng() : position.lng;
+                document.getElementById("latitude").value = lat;
+                document.getElementById("longitude").value = lng;
                 window.dispatchEvent(new Event("pin-moved"));
             });
         }
